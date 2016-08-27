@@ -8,51 +8,54 @@
 using System;
 using System.Collections.Generic;
 
-class testClass
+namespace PalindromePermutationNS
 {
-    public static void Main()
+    class TestClass
     {
-        Console.WriteLine("Enter a string to check for permutations of palindromes: ");
-        string str = Console.ReadLine();
-        PalindromePermutation pp = new PalindromePermutation();
+        public static void Main()
+        {
+            Console.WriteLine("Enter a string to check for permutations of palindromes: ");
+            string str = Console.ReadLine();
+            PalindromePermutation pp = new PalindromePermutation();
 
-        if (pp.isPalindromePermutation(str))
-        {
-            Console.WriteLine("Yea! You got yourself a permutation of a palindrome!");
-        }
-        else
-        {
-            Console.WriteLine("Nope, no permutations of palindromes here :(");
-        }
-    }
-}
-
-class PalindromePermutation
-{
-    private Dictionary<char, bool> isCharOccuranceCountOdd = new Dictionary<char, bool>();
-    private int oddCharCount = 0;
-
-    private void toggleOddCharCountFlag(char c)
-    {
-        if (isCharOccuranceCountOdd.ContainsKey(c) && isCharOccuranceCountOdd[c])
-        {
-            isCharOccuranceCountOdd[c] = false;
-            oddCharCount--;
-        }
-        else
-        {
-            isCharOccuranceCountOdd[c] = true;
-            oddCharCount++;
+            if (pp.IsPalindromePermutation(str))
+            {
+                Console.WriteLine("Yea! You got yourself a permutation of a palindrome!");
+            }
+            else
+            {
+                Console.WriteLine("Nope, no permutations of palindromes here :(");
+            }
         }
     }
 
-    public bool isPalindromePermutation(string s)
+    class PalindromePermutation
     {
-        foreach(char c in s)
+        private Dictionary<char, bool> IsCharOccuranceCountOdd = new Dictionary<char, bool>();
+        private int OddCharCount = 0;
+
+        private void ToggleOddCharCountFlag(char c)
         {
-            toggleOddCharCountFlag(c);
+            if (IsCharOccuranceCountOdd.ContainsKey(c) && IsCharOccuranceCountOdd[c])
+            {
+                IsCharOccuranceCountOdd[c] = false;
+                OddCharCount--;
+            }
+            else
+            {
+                IsCharOccuranceCountOdd[c] = true;
+                OddCharCount++;
+            }
         }
 
-        return (oddCharCount > 1) ? false : true;
+        public bool IsPalindromePermutation(string s)
+        {
+            foreach(char c in s)
+            {
+                ToggleOddCharCountFlag(c);
+            }
+
+            return (OddCharCount > 1) ? false : true;
+        }
     }
 }

@@ -5,62 +5,65 @@
 using System;
 using System.Collections.Generic;
 
-public class MyQueue<T>
+namespace QueueFromStacks
 {
-    private Stack<T> OutputStack = new Stack<T>();
-    private Stack<T> InputStack = new Stack<T>();
-
-    public int Count = 0;
-
-    public T Dequeue()
+    public class MyQueue<T>
     {
-        if (OutputStack.Count == 0)
+        private Stack<T> OutputStack = new Stack<T>();
+        private Stack<T> InputStack = new Stack<T>();
+
+        public int Count = 0;
+
+        public T Dequeue()
         {
-            while (InputStack.Count > 0)
+            if (OutputStack.Count == 0)
             {
-                OutputStack.Push(InputStack.Pop());
+                while (InputStack.Count > 0)
+                {
+                    OutputStack.Push(InputStack.Pop());
+                }
+            }
+
+            if (OutputStack.Count > 0)
+            {
+                Count--;
+                return OutputStack.Pop();
+            }
+            else
+            {
+                return default (T);
             }
         }
 
-        if (OutputStack.Count > 0)
+        public void Enqueue(T item)
         {
-            Count--;
-            return OutputStack.Pop();
-        }
-        else
-        {
-            return default (T);
+            InputStack.Push(item);
+            Count++;
         }
     }
 
-    public void Enqueue(T item)
+    public class TestMyQueue
     {
-        InputStack.Push(item);
-        Count++;
-    }
-}
-
-public class TestMyQueue
-{
-    public static void Main()
-    {
-        MyQueue<int> mq = new MyQueue<int>();
-
-        mq.Enqueue(1);
-        mq.Enqueue(2);
-
-        Console.WriteLine("Inline: " + mq.Dequeue());
-
-        mq.Enqueue(3);
-        mq.Enqueue(4);
-
-        Console.WriteLine("Inline: " + mq.Dequeue());
-
-        mq.Enqueue(5);
-
-        while (mq.Count > 0)
+        public static void Main()
         {
-            Console.WriteLine(mq.Dequeue());
+            MyQueue<int> mq = new MyQueue<int>();
+
+            mq.Enqueue(1);
+            mq.Enqueue(2);
+
+            Console.WriteLine("Inline: " + mq.Dequeue());
+
+            mq.Enqueue(3);
+            mq.Enqueue(4);
+
+            Console.WriteLine("Inline: " + mq.Dequeue());
+
+            mq.Enqueue(5);
+
+            while (mq.Count > 0)
+            {
+                Console.WriteLine(mq.Dequeue());
+            }
         }
     }
 }
